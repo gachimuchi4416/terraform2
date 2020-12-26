@@ -17,9 +17,28 @@ resource "aws_instance" "walter" {
 }
 
 output "walter_instance_id" {
-  value  = aws_instance.walter.id
+  value = aws_instance.walter.id
 }
 
 provider "aws" {
-  region  = "ap-northeast-1"
+  region = "ap-northeast-1"
+}
+
+#EC2向けセキュリティグループの定義
+resource "aws_security_group" "walter_ec2" {
+  name = "walter-ec2"
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
