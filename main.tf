@@ -3,8 +3,9 @@ locals {
 }
 
 resource "aws_instance" "walter" {
-  ami           = "ami-01748a72bed07727c"
-  instance_type = local.walter_instance_type
+  ami                    = "ami-01748a72bed07727c"
+  instance_type          = local.walter_instance_type
+  vpc_security_group_ids = [aws_security_group.walter_ec2.id]
   tags = {
     Name = "walter"
   }
@@ -16,8 +17,8 @@ resource "aws_instance" "walter" {
   EOF
 }
 
-output "walter_instance_id" {
-  value = aws_instance.walter.id
+output "walter_public_dns" {
+  value = aws_instance.walter.public_dns
 }
 
 provider "aws" {
