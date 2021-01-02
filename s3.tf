@@ -1,6 +1,6 @@
 #S3プライベートバケットの定義
 resource "aws_s3_bucket" "private-walter" {
-  bucket = "gachimuchi-terraform20210102"
+  bucket        = "gachimuchi-terraform20210102"
   force_destroy = true
 
   versioning {
@@ -27,8 +27,8 @@ resource "aws_s3_bucket_public_access_block" "private-walter" {
 
 #S3パブリックバケットの定義
 resource "aws_s3_bucket" "public-walter" {
-  bucket = "public-gachimuchi-terraform20210102"
-  acl    = "public-read"
+  bucket        = "public-gachimuchi-terraform20210102"
+  acl           = "public-read"
   force_destroy = true
 
   cors_rule {
@@ -52,7 +52,7 @@ resource "aws_s3_bucket" "alb_log" {
     }
   }
 }
-
+#ALBログバケットポリシーの定義
 resource "aws_s3_bucket_policy" "alb_log" {
   bucket = aws_s3_bucket.alb_log.id
   policy = data.aws_iam_policy_document.alb_log.json
