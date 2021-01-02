@@ -19,3 +19,11 @@ resource "aws_subnet" "public" {
     Name = "walter-public-subnet-1a"
   }
 }
+
+#インターネットゲートウェイを作成
+resource "aws_internet_gateway" "walter-igw" {
+  vpc_id = aws_vpc.walter.id
+  tags = {
+    Name = "walter-igw"
+  }
+}
