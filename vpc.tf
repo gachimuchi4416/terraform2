@@ -62,6 +62,9 @@ resource "aws_subnet" "private" {
 #プライベートトルートの定義
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.walter.id
+  tags = {
+    Name = "walter-private-rt"
+  }
 }
 
 #プライベートルートテーブルの関連付け
