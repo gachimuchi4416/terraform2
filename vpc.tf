@@ -72,3 +72,19 @@ resource "aws_route_table_association" "private" {
   subnet_id      = aws_subnet.private.id
   route_table_id = aws_route_table.private.id
 }
+
+#EIPの定義
+resource "aws_eip" "nat_gataway" {
+  vpc        = true
+  depends_on = [aws_internet_gateway.walter-igw]
+}
+
+#NATゲートウェイの定義
+resource "aws_nat_gateway" "walter" {
+  allocation_id = aws_eip.nat_gataway.id
+  subnet_id     = aws_subnet.public.id
+  depends_on    = [aws_internet_gateway.walter-igw]
+  tags = {
+    Name = "walter-nat-gw"
+  }
+}
